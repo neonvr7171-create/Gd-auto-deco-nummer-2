@@ -1,0 +1,32 @@
+import random
+import json
+
+# Configuration
+LEVEL_WIDTH = 500
+LEVEL_HEIGHT = 200
+DECOR_TYPES = ["spike", "glow_orb", "block_detail", "background_dot", "deco_chain"]
+
+def generate_decorations(count=100):
+    decorations = []
+
+    for _ in range(count):
+        deco = {
+            "type": random.choice(DECOR_TYPES),
+            "x": random.randint(0, LEVEL_WIDTH),
+            "y": random.randint(0, LEVEL_HEIGHT),
+            "scale": round(random.uniform(0.5, 2.0), 2),
+            "rotation": random.randint(0, 360),
+            "color": random.choice(["red", "blue", "green", "yellow", "purple", "white"])
+        }
+        decorations.append(deco)
+
+    return decorations
+
+def save_to_file(data, filename="decorations.json"):
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=4)
+
+if __name__ == "__main__":
+    deco_data = generate_decorations(150)
+    save_to_file(deco_data)
+    print("Auto decoration data generated!")
