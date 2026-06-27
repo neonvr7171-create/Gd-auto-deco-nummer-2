@@ -1,0 +1,47 @@
+main.py
+import random
+import json
+import os
+
+# Simple Geometry Dash Auto Decoration Generator
+
+LEVEL_WIDTH = 500
+LEVEL_HEIGHT = 200
+
+DECOR_TYPES = [
+    "spike_deco",
+    "glow_orb",
+    "block_detail",
+    "background_dot",
+    "chain_deco",
+    "particle"
+]
+
+def generate_decorations(amount=120):
+    data = []
+
+    for i in range(amount):
+        deco = {
+            "id": i,
+            "type": random.choice(DECOR_TYPES),
+            "x": random.randint(0, LEVEL_WIDTH),
+            "y": random.randint(0, LEVEL_HEIGHT),
+            "scale": round(random.uniform(0.4, 2.5), 2),
+            "rotation": random.randint(0, 360),
+            "opacity": random.randint(40, 100)
+        }
+        data.append(deco)
+
+    return data
+
+
+def save_json(decorations):
+    with open("decorations.json", "w") as f:
+        json.dump(decorations, f, indent=4)
+
+
+if __name__ == "__main__":
+    print("Generating Auto Deco...")
+    deco = generate_decorations(200)
+    save_json(deco)
+    print("Done! File saved as decorations.json")
